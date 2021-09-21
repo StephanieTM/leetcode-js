@@ -38,18 +38,19 @@
  * @return {number[]}
  */
 var maxSlidingWindow = function(nums, k) {
-  // 单调递减队列，队首元素为当前最大值，队列内只有当前滑动窗口包含的值
-  const queue = [];
   const result = [];
+  const queue = []; // 优先级队列，单调递减，队首元素最大，队列内仅包含当前滑动窗口中的元素；queue存放的是下标
 
   for (let i = 0; i < nums.length; i++) {
     while (queue.length && nums[i] >= nums[queue[queue.length - 1]]) {
+      // 当前数字大于队尾元素，则队尾元素出队（肯定不是滑动窗口的最大值）
       queue.pop();
     }
 
     queue.push(i);
 
-    while (queue[0] <= i - k) {
+    while (queue[0] < i - k + 1) {
+      // 当队首元素（当前最大的数）对应的下标已经不在滑动窗口中时，队首元素出队
       queue.shift();
     }
 
@@ -57,6 +58,7 @@ var maxSlidingWindow = function(nums, k) {
       result.push(nums[queue[0]]);
     }
   }
+  return result;
 };
 
 // 测试用例
