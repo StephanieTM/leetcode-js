@@ -43,6 +43,10 @@ n == matrix[i].length
  * @return {number[]}
  */
 var spiralOrder = function(matrix) {
+  if (!matrix.length || !matrix[0].length) {
+    return [];
+  }
+
   // m行n列
   const m = matrix.length, n = matrix[0].length;
   const result = [];
