@@ -52,17 +52,16 @@
  * @param {number} targetSum
  * @return {boolean}
  */
-var hasPathSum = function(root, targetSum, curSum = 0) {
+var hasPathSum = function(root, targetSum) {
   if (!root) {
-    // 空树，false
     return false;
   }
   if (!root.left && !root.right) {
-    // 叶子节点
-    return targetSum === curSum + root.val;
+    // 叶子
+    return targetSum === root.val;
   }
-  return hasPathSum(root.left, targetSum, curSum + root.val) || hasPathSum(root.right, targetSum, curSum + root.val);
-};
+  return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
+}
 
 // 测试用例
 let test = ''
