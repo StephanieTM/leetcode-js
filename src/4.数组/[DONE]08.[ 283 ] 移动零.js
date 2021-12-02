@@ -21,41 +21,24 @@
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var moveZeroes = function(nums) {
-  let i = 0, count = 0, distance = 0;
-
-  const moveToRight = (from, _count, _dist) => {
-    let i = 0;
-    while (_dist > 0) {
-      nums[from + i] = nums[from + i + _count];
-      i++;
-      _dist--;
+  let left = 0, right = 0;
+  while (right < nums.length) {
+    if (nums[right] !== 0) {
+      const temp = nums[left];
+      nums[left] = nums[right];
+      nums[right] = temp;
+      left++;
+      right++;
+    } else {
+      right++; // left停在0
     }
-    while (_count > 0) {
-      nums[from + i] = 0;
-      i++;
-      _count--;
-    }
-  };
-
-  while (i < nums.length) {
-    while (nums[i] === 0) {
-      count++;
-      i++;
-    }
-    while (i < nums.length && nums[i] !== 0) {
-      distance++;
-      i++;
-    }
-    moveToRight(i - distance - count, count, distance);
-    // i = i - count;
-    count = 0;
-    distance = 0;
   }
 };
 
 // 测试用例
-let test = ''
+let test = [0, 1, 0, 1]
 
 console.time('执行用时');
-console.log(xxx(test));
+moveZeroes(test);
+console.log(test);
 console.timeEnd('执行用时');
