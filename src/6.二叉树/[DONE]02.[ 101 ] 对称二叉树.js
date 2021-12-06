@@ -23,7 +23,7 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isSymmetric1 = function(root) {
+var isSymmetric = function(root) {
   const temp = [];
   temp.push(root ? root.left : null);
   temp.push(root ? root.right : null);
@@ -50,12 +50,12 @@ var isSymmetric1 = function(root) {
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isSymmetric2 = function(root) {
+var isSymmetric = function(root) {
   if (!root) return true;
-  return check2(root.left, root.right);
+  return check(root.left, root.right);
 };
 
-function check2 (node1, node2) {
+function check (node1, node2) {
   if (!node1 && !node2) return true; // 都是 null
   if (!node1 || !node2) return false; // 只有一个是 null
   return (node1.val === node2.val) && check2(node1.left, node2.right) && check2(node1.right, node2.left); // 都不是 null
@@ -66,7 +66,7 @@ function check2 (node1, node2) {
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isSymmetric3 = function(root) {
+var isSymmetric = function(root) {
   if (!root || (!root.left && !root.right)) return true;
 
   const list = [root.left, root.right];
@@ -82,6 +82,32 @@ var isSymmetric3 = function(root) {
   return true;
 };
 
+// 复习
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function(root) {
+  if (!root) return true;
+  if (!root.left && !root.right) return true;
+  if (!root.left || !root.right) return false;
+
+  return check(root.left, root.right);
+};
+
+function check(left, right) {
+  if (!left && !right) return true;
+  if (!left || !right || left.val !== right.val) return false;
+  return check(left.left, right.right) && check(left.right, right.left);
+}
 
 // 测试用例
 
