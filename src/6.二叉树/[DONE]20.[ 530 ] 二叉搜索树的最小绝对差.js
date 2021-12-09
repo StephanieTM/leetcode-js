@@ -61,6 +61,37 @@ var getMinimumDifference = function(node) {
 var getMax = (node) => node.right ? getMax(node.right) : node;
 var getMin = (node) => node.left ? getMin(node.left) : node;
 
+// 方法二：我想的
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var getMinimumDifference = function(root) {
+  let prev;
+  let result = Number.MAX_SAFE_INTEGER; 
+
+  function traverse(node) {
+    if (node.left) traverse(node.left);
+    if (prev !== undefined) {
+      result = Math.min(result, node.val - prev);
+    }
+    prev = node.val;
+    if (node.right) traverse(node.right);
+  }
+
+  traverse(root);
+
+  return result;
+};
+
 
 // 测试用例
 let test = ''
